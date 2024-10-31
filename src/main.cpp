@@ -1,8 +1,16 @@
-#include <Arduino.h>
+#include "main.h"
+
+motion processMotion;
+Queue motions;
+
+
 void setup() {
-// write your initialization code here
+    Serial.begin(115200);
+
+    setup_communication();
+    setup_movement();
 }
 
 void loop() {
-// write your code here
+    loop_movement();
 }

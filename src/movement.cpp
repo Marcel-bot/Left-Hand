@@ -35,22 +35,7 @@ void setup_movement() {
 
 void loop_movement() {
     if (!motions.isEmpty()) {
-        Serial.println("Processing command");
         const unsigned long start = millis();
-
-        for (int i = 0; i < 6; i++) {
-            Serial.print("Initial value for ");
-            Serial.print(i);
-            Serial.print(": ");
-            Serial.println(positions[i]);
-        }
-
-        for (int i = 0; i < motions.first().len; i++) {
-            Serial.print("Moving ");
-            Serial.print(motions.first().motion_moves[i].part);
-            Serial.print("to:");
-            Serial.println(motions.first().motion_moves[i].degree);
-        }
 
         for (unsigned long now = millis(); now < start + motions.first().duration * 1000; now = millis()) {
             const float t = static_cast<float>(now - start) / (motions.first().duration * 1000);
@@ -61,11 +46,6 @@ void loop_movement() {
                 const int pos = positions[currentMotion.part] + (
                                     currentMotion.degree - positions[currentMotion.part]) * t;
 
-                Serial.print("Moving ");
-                Serial.print(currentMotion.part);
-                Serial.print(" to ");
-                Serial.println(pos);
-
                 parts[currentMotion.part].write(pos);
             }
         }
@@ -75,7 +55,5 @@ void loop_movement() {
         }
 
         motions.pop();
-
-        Serial.println("Command_processed");
     }
 }

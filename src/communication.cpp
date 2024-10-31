@@ -1,9 +1,6 @@
 #include "main.h"
 
 void onReceive(const int size) {
-    Serial.println("Received message: ");
-    Serial.println(size);
-
     switch (Wire.read()) {
         case MOTION_METADATA:
             float receivedFloats[5];
